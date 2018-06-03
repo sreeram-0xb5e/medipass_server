@@ -1,0 +1,32 @@
+{% extends "/customer/index.html" %}
+
+
+
+{% block content %}
+
+<script>
+    function click_list_elements(id,data_id)
+    {
+        window.location.href="http://209.97.130.224:5000/data_card?id=" + id + "&data_id=" + data_id ;
+    }
+</script>
+
+<ul class="demo-list-item mdl-list">
+  {% for info in info_list %}
+  <li class="mdl-list__item mdl-list__item--two-line" onclick = "click_list_elements( {{ uid }},{{ info['info_id'] }} )">
+      <span class="mdl-list__item-primary-content">
+        <span> <b>{{ info['title'] }} </b></span>
+        <span class="mdl-list__item-sub-title"> {{ info['description'] }} </span>
+      </span>
+      <span class="mdl-list__item-secondary-content">
+        <a class="mdl-list__item-secondary-action" ><i class="material-icons">arrow forward</i></a>
+      </span>
+    </li>
+  <hr>
+  {% endfor %}
+</ul>
+
+
+
+
+{% endblock %}

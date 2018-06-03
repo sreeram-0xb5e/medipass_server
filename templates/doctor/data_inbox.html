@@ -1,0 +1,40 @@
+{% extends "/doctor/index.html" %}
+
+
+
+{% block content %}
+
+<script>
+    function click_list_elements(id,data_id,did)
+    {
+
+      var xhttp_post = new XMLHttpRequest();
+      xhttp_post.open("POST","http://209.97.130.224:8000/transactions/new",true);
+      xhttp_post.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+      xhttp_post.send("patientID=" + id.toString()  + "&doctorID=" + did.toString() + "&dataCategory=" + data_id.toString() + "&Operation=" + "Opened");
+      alert('Updated Blockchain!');
+
+      window.location.href="http://209.97.130.224:5000/d_cards?id=" + id + "&data_id=" + data_id ;
+
+    }
+</script>
+
+<ul class="demo-list-item mdl-list">
+  {% for info in data %}
+  <li class="mdl-list__item mdl-list__item--two-line" onclick = "click_list_elements('{{ uid }}','{{ info['data_id'] }}','{{ did }}');">
+      <span class="mdl-list__item-primary-content">
+        <span> <b>{{ info['title'] }} </b></span>
+        <span class="mdl-list__item-sub-title"> {{ info['description'] }} </span>
+      </span>
+      <span class="mdl-list__item-secondary-content">
+        <a class="mdl-list__item-secondary-action" ><i class="material-icons">arrow forward</i></a>
+      </span>
+    </li>
+  <hr>
+  {% endfor %}
+</ul>
+
+
+
+
+{% endblock %}

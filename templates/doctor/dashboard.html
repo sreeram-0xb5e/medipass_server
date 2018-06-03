@@ -1,0 +1,34 @@
+{% extends "/doctor/index.html" %}
+
+{% block content %}
+
+<main class="mdl-layout__content mdl-color--grey-100">
+  <div class="mdl-grid demo-content">
+    <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
+      <svg fill="currentColor" width="200px" height="200px" viewBox="0 0 1 1" class="demo-chart mdl-cell mdl-cell--4-col mdl-cell--3-col-desktop">
+        <use xlink:href="#piechart" mask="url(#piemask)" />
+        <text x="0.5" y="0.5" font-family="Roboto" font-size="0.3" fill="#888" text-anchor="middle" dy="0.1">0</text>
+        <text x = "0.5" y="0.6" font-family="Roboto" font-size="0.08" fill="#888" text-anchor="middle" dy="0.1"> Data Inbox</text>
+      </svg>
+      <svg fill="currentColor" width="200px" height="200px" viewBox="0 0 1 1" class="demo-chart mdl-cell mdl-cell--4-col mdl-cell--3-col-desktop">
+        <use xlink:href="#piechart" mask="url(#piemask)" />
+        <text x="0.5" y="0.5" font-family="Roboto" font-size="0.3" fill="#888" text-anchor="middle" dy="0.1"> 3 </text>
+        <text x = "0.5" y="0.6" font-family="Roboto" font-size="0.08" fill="#888" text-anchor="middle" dy="0.1"> Appointments</text>
+      </svg>
+      <svg fill="currentColor" width="200px" height="200px" viewBox="0 0 1 1" class="demo-chart mdl-cell mdl-cell--4-col mdl-cell--3-col-desktop">
+        <use xlink:href="#piechart" mask="url(#piemask)" />
+        <text x="0.5" y="0.5" font-family="Roboto" font-size="0.3" fill="#888" text-anchor="middle" dy="0.1">21</text>
+        <text x = "0.5" y="0.6" font-family="Roboto" font-size="0.08" fill="#888" text-anchor="middle" dy="0.1">+VE Reviews</text>
+      </svg>
+      <svg fill="currentColor" width="200px" height="200px" viewBox="0 0 1 1" class="demo-chart mdl-cell mdl-cell--4-col mdl-cell--3-col-desktop">
+        <use xlink:href="#piechart" mask="url(#piemask)" />
+        <text x="0.5" y="0.5" font-family="Roboto" font-size="0.3" fill="#888" text-anchor="middle" dy="0.1">5</text>
+        <text x = "0.5" y="0.6" font-family="Roboto" font-size="0.08" fill="#888" text-anchor="middle" dy="0.1"> -VE Reviews</text>
+      </svg>
+    </div>
+
+  </div>
+</main>
+
+
+{% endblock %}

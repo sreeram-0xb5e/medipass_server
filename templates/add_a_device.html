@@ -1,0 +1,134 @@
+{% extends "index.html" %}
+
+
+
+    {% block content %}
+
+    <script>
+    $(function(){
+        $('#add_device_button').click(function() {
+            var id = parseInt(document.getElementById('id').value);
+            var name = document.getElementById('name').value;
+            var imei = document.getElementById('imei').value;
+            var mac_address = document.getElementById('mac_address').value;
+            var dop = document.getElementById('dop').value;
+            var manufacturer = document.getElementById('manufacturer').value;
+            var type = document.getElementById('type').value;
+        if (id == "" || name == "" || imei == "" || mac_address == "" || dop == "" || manufacturer == "" || type == "")
+        {
+            alert('Please Fill all the details to proceed!');
+        }
+    else {
+
+        $.post("http://206.189.35.78:5000/add_device_into_db",
+    {
+        id:id,name:name,imei:imei,mac_address:mac_address,dop:dop,manufacturer:manufacturer,type:type
+    },
+    function(data, status){
+        if (status == "success" && data == "1")
+        {
+          alert("Added!");
+        }
+        else {
+            alert('Unable to add! Try again!')
+        }
+
+    });
+    }
+
+    }); });
+        </script>
+            <ul class="demo-list-item mdl-list" style="margin-left: 10%">
+
+            <!-- Simple Textfield -->
+
+            <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" id="id" value = "{{barcode}}">
+                <label class="mdl-textfield__label" for="sample1">id</label>
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" id="name">
+                <label class="mdl-textfield__label" for="sample1">Name</label>
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" id="imei">
+                <label class="mdl-textfield__label" for="sample1">IMEI</label>
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" id="mac_address">
+                <label class="mdl-textfield__label" for="sample1">Mac Address</label>
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" id="dop">
+                <label class="mdl-textfield__label" for="sample1">Date Of Procurement</label>
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" id="manufacturer">
+                <label class="mdl-textfield__label" for="sample1">Manufacturer</label>
+            </div>
+
+            <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" id="type">
+                <label class="mdl-textfield__label" for="sample1">Type</label>
+            </div>
+
+
+
+
+
+<!-- Accent-colored raised button -->
+<button id = "add_device_button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+  Add Device
+</button>
+
+
+</ul>
+
+
+
+
+{% endblock %}
+
+<!--
+
+<div class="mdl-textfield mdl-js-textfield">
+    <b> ID: </b>
+ <input class="mdl-textfield__input" type="text" id="id" value= {{ barcode}} >
+</div>
+
+ <div class="mdl-textfield mdl-js-textfield">
+     <b> Name: </b>
+ <input class="mdl-textfield__input" type="text" id="name">
+ </div>
+
+ <div class="mdl-textfield mdl-js-textfield">
+    <b> IMEI: </b>
+ <input class="mdl-textfield__input" type="text" id="imei">
+ </div>
+
+ <div class="mdl-textfield mdl-js-textfield">
+    <b> Mac Address: </b>
+ <input class="mdl-textfield__input" type="text" id="mac_address">
+ </div>
+
+ <div class="mdl-textfield mdl-js-textfield">
+     <b> Date Of Procurement: </b>
+ <input class="mdl-textfield__input" type="text" id="dop">
+ </div>
+
+ <div class="mdl-textfield mdl-js-textfield">
+     <b> Manufacturer: </b>
+ <input class="mdl-textfield__input" type="text" id="manufacturer">
+ </div>
+
+ <div class="mdl-textfield mdl-js-textfield">
+     <b> Type: </b>
+ <input class="mdl-textfield__input" type="text" id="type">
+ </div>
+
+-->

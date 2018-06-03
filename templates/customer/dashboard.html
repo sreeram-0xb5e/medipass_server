@@ -1,0 +1,31 @@
+{% extends "/customer/index.html" %}
+
+{% block content %}
+
+<main class="mdl-layout__content mdl-color--grey-100">
+  <div class="mdl-grid demo-content">
+    <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
+      <svg fill="currentColor" width="200px" height="200px" viewBox="0 0 1 1" class="demo-chart mdl-cell mdl-cell--4-col mdl-cell--3-col-desktop">
+        <use xlink:href="#piechart" mask="url(#piemask)" />
+        <text x="0.5" y="0.5" font-family="Roboto" font-size="0.25" fill="#888" text-anchor="middle" dy="0.1"> 142</text>
+        <text x = "0.5" y="0.6" font-family="Roboto" font-size="0.08" fill="#888" text-anchor="middle" dy="0.1"> Blood Preasure</text>
+      </svg>
+      <svg fill="currentColor" width="200px" height="200px" viewBox="0 0 1 1" class="demo-chart mdl-cell mdl-cell--4-col mdl-cell--3-col-desktop">
+        <use xlink:href="#piechart" mask="url(#piemask)" />
+        <text x="0.5" y="0.5" font-family="Roboto" font-size="0.25" fill="#888" text-anchor="middle" dy="0.1"> 37</text>
+        <text x = "0.5" y="0.6" font-family="Roboto" font-size="0.08" fill="#888" text-anchor="middle" dy="0.1"> Iron Level</text>
+      </svg>
+      <svg fill="currentColor" width="200px" height="200px" viewBox="0 0 1 1" class="demo-chart mdl-cell mdl-cell--4-col mdl-cell--3-col-desktop">
+        <use xlink:href="#piechart" mask="url(#piemask)" />
+        <text x="0.5" y="0.5" font-family="Roboto" font-size="0.25" fill="#888" text-anchor="middle" dy="0.1"> 115 </text>
+        <text x = "0.5" y="0.6" font-family="Roboto" font-size="0.08" fill="#888" text-anchor="middle" dy="0.1"> Blood Sugar</text>
+      </svg>
+
+
+    </div>
+
+  </div>
+</main>
+
+
+{% endblock %}

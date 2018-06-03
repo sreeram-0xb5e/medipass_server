@@ -1,0 +1,27 @@
+{% extends "/customer/index.html" %}
+
+{% block content %}
+<div class="demo-cards mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-grid mdl-grid--no-spacing">
+  <div class="demo-updates mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
+    <div class="mdl-card__title mdl-card--expand mdl-color--blue-grey-500">
+      <h2 class="mdl-card__title-text">Emergency Information</h2>
+    </div>
+    <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+      <b> Name: </b> &ensp; {{ data['name'] }}<br/><br/>
+      <b> Age: </b>  &ensp; {{ data['age'] }}<br/><br/>
+      <b> Gender: </b>  &ensp; {{ data['gender'] }}<br/><br/>
+      <b>Emergency Contact Number:</b>  &ensp; {{ data['number'] }}<br/><br/>
+      <b>Address:</b>  &ensp; {{ data['address'] }}<br/><br/>
+     <b>Blood Group:</b> &ensp; {{ data['blood'] }}<br/><br/>
+     <b>Diabetic:</b>  &ensp; {{ data['diabetic'] }}<br/><br/>
+     <b>Blood Preasure:</b>  &ensp; {{ data['bp']  }}<br/><br/>
+     <b>Carcinogenic:</b>  &ensp; {{ data['carcinogenic'] }}<br/><br/>
+     <b>Other Complexities:</b>  &ensp; {{ data['oc'] }}<br/><br/>
+    </div>
+
+    <br/>
+
+  </div>
+</div>
+
+{% endblock %}

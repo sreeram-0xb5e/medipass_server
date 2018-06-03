@@ -1,0 +1,25 @@
+{% extends "index_test.html" %}
+
+<script>
+function clicked(device_id)
+{
+    $('#main_content').load("/show_a_device", { device_id: device_id })
+}
+</script>
+
+{% block content %}
+<ul class="demo-list-item mdl-list">
+  {% for device in devices_list %}
+  <li class="mdl-list__item mdl-list__item--two-line" onclick="clicked( {{ device['id'] }})">
+      <span class="mdl-list__item-primary-content">
+        <span> {{ device['Name'] }} </span>
+        <span class="mdl-list__item-sub-title"> {{ device['IMEI'] }} </span>
+      </span>
+      <span class="mdl-list__item-secondary-content">
+        <a class="mdl-list__item-secondary-action" ><i class="material-icons">arrow forward</i></a>
+      </span>
+    </li>
+  <hr>
+  {% endfor %}
+</ul>
+{% endblock %}

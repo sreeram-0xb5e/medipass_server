@@ -1,0 +1,23 @@
+{% extends "/doctor/index.html" %}
+
+
+
+{% block content %}
+
+<ul class="demo-list-item mdl-list">
+  {% for info in data %}
+  <li class="mdl-list__item mdl-list__item--two-line" onclick = "click_list_elements('{{ uid }}','{{ info['data_id'] }}','{{ did }}');">
+      <span class="mdl-list__item-primary-content">
+        <span> <b>{{ info['d_name'] }} </b> </span>
+        <span class="mdl-list__item-sub-title"> {{ info['operation'] }} + "-------" {{ info['category'] }} </span>
+      </span>
+      
+    </li>
+  <hr>
+  {% endfor %}
+</ul>
+
+
+
+
+{% endblock %}
