@@ -4,18 +4,18 @@ from pymongo import MongoClient #MongoClient for python
 import json #For creating JSON
 from objdict import ObjDict #For creating JSON
 from flask import request #for handling GET and POST requests
-from flask.ext.login import LoginManager
-from flask.ext.wtf import Form
+from flask_login import LoginManager
+from flask_wtf import Form
 from wtforms import StringField, PasswordField
 from wtforms.validators import DataRequired
 from flask import request, redirect, render_template, url_for, flash
-from flask.ext.login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required
 from werkzeug.security import check_password_hash
 import jwt
 import datetime
 import requests
 import ast
-from Encrypt import AESCipher
+#from Encrypt import AESCipher
 import ast
 
 #Variable Declaration
@@ -87,7 +87,7 @@ def authorize():
         return '0'
 
     if (res['status'] == 'success'):
-        print res['date']
+        print (res['date'])
         return '1'
     return '0'
 
@@ -100,8 +100,17 @@ def logout():
 ##
 @app.route("/doc")
 def doc_index():
+    did={"lineChart":[[2015,10],[2016,8],[2017,11],[2018,6],[2019,10]],"appointments":10,"gaugeChart":{"year":2019,"number":10},"barChart":{"seriesKeys":['types', 'General',
+         'Peadiatrics', 'Others' ],"seriesYears":[]},"pieChart":{"emergency":21,"normal":5,"unavailable":4}}
     return render_template("/doctor/dashboard.html" , did = did)
-
+@app.route("/patients")
+def patients():
+    did={"tableData":["Rama","Sreeram","Chaitanya"]}
+    return render_template("/doctor/patientListing.html" , did = did)
+@app.route("/reports/<name>")
+def reports(name):
+    return render_template("/doctor/reports.html",name=name.upper(),bloodPressure={"value":"120/80","status":"Good"},caseType="Normal",
+    bodyTemperature=99,sugarLevel=120.0,cards={"Contact Details":{"Name":name,"Age":22,"Gender":"Male","Contact":1234567890},"ENT":{"Name":name,"Age":22,"Gender":"Male","Contact":1234567890},"ENT1":{"Name":name,"Age":22,"Gender":"Male","Contact":1234567890}})
 @app.route("/d_cards",methods = ['GET'])
 def data_card1():
     user_id = request.args['id']
@@ -220,7 +229,7 @@ def consultation_list():
         data['doctor'] = x['name']
         data['date'] = i['date']
         res.append(data)
-    print res
+    print (res)
     return render_template("/customer/consultation_list.html",info_list = res,uid = user_id)
 
 @app.route("/prescription" , methods = ['GET'])
@@ -283,7 +292,7 @@ def data_card():
 @app.route("/add_a_device",methods=['GET'])
 def add_a_device():
     barcode_value = request.args['barcode']
-    print barcode_value
+    print (barcode_value)
     return render_template("add_a_device.html",barcode = barcode_value)
 
 @app.route("/add_device_into_db",methods=['POST'])
@@ -310,8 +319,8 @@ def data_access_history():
         data['category'] = title[int(i['dataCategory']) - 1]
         data['time'] = i['Time']
         final_res.append(data)
-    print "Final Res:"
-    print final_res
+    print ("Final Res:")
+    print (final_res)
     return render_template("/customer/data_access_card.html", data = final_res)
 
 

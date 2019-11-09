@@ -327,7 +327,7 @@ for (var attr in meta) {
 <script integrity="sha256-2P0MRbAT3p4Oh8olbuAvRl44EikliFx94nnWg4+R+mo=" data-source-attribution="shopify.dynamic-checkout" defer="defer" src="//cdn.shopify.com/s/assets/storefront/features-d8fd0c45b013de9e0e87ca256ee02f465e38122925885c7de279d6838f91fa6a.js" crossorigin="anonymous"></script>
 <script defer="defer" src="//cdn.shopify.com/s/assets/themes_support/ga_urchin_forms-99e991855b3d8ddc69e625c68ab0579dd9927b611c2ec4943d396c72e3af0849.js"></script>
 
-
+<link href="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css" rel="stylesheet">
 <style id="shopify-dynamic-checkout-cart">@media screen and (min-width: 750px) {
   #dynamic-checkout-cart {
     min-height: 50px;
@@ -350,12 +350,10 @@ a{
         <li ><a href="/doc" class="logo-container" style="color: white;">Medipass<i  style="color: white;"class="material-icons left">spa</i></a></li>
         <li class="no-padding">
           <ul class="collapsible collapsible-accordion">
-            
               <li class="bold waves-effect"><a href="/doc" class="collapsible-header"style="color: white;" >Dashboard<i class="material-icons chevron">chevron_left</i></a>
                 <li class="bold waves-effect"><a href ="/patients"class="collapsible-header"style="color: white;" >Shared With Me<i class="material-icons chevron">chevron_left</i></a>
-                  
+              
             </li>
-            
             
           </ul>
         </li>
@@ -367,65 +365,25 @@ a{
     <nav class="navbar nav-extended no-padding">
       <div class="nav-wrapper"><a href="#" class="brand-logo">Dashboard - Doctor</a><a href="#" data-target="sidenav-left" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul id="nav-mobile" class="right">
-          
         <li>Hi, Dr.Vipul Sharma  &nbsp;&nbsp;&nbsp;</li>
         </ul>
       </div>
-      <div class="nav-content">
-        <div class="nav-metrics row">
-          <div class="col s6 no-padding">
-            <div class="card horizontal">
-              <div class="card-stacked">
-                <div class="card-metrics card-metrics-static">
-                  <div class="card-metric active">
-                    <div class="card-metric-title">Total Patients</div>
-                    <div class="card-metric-value">{{did["lineChart"][-1][1]}}</div>
-                    <div class="card-metric-change increase">12%<i class="material-icons left">keyboard_arrow_up</i></div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-content">
-                <div id="mini-line-chart1" ></div>
-              </div>
-            </div>
-          </div>
-          <div class="col s6 no-padding">
-            <div class="card horizontal">
-              <div class="card-stacked">
-                <div class="card-metrics card-metrics-static">
-                  <div class="card-metric active">
-                    <div class="card-metric-title">Appointments</div>
-                    <div class="card-metric-value">{{did["appointments"]}}</div>
-                    <div class="card-metric-change increase">2 <i class="material-icons left">keyboard_arrow_up</i></div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-content">
-                <div id="mini-stacked-gauge-chart" ></canvas>
-              </div>
-            </div>
-          </div>
-          
-        </div>
-      </div>
+      
     </nav>
     <main><div class="container">
   <div class="row">
-    <div class="col s6">
+    <div class="col s12">
 
       <div class="card">
         <div class="card-metrics">
           <div class="card-metric waves-effect active">
             <div class="card-metric-title">Patients</div>
-            <div class="card-metric-value">{{did["lineChart"][-1][1]}}</div>
-            <div class="card-metric-change increase">
-              <i class="material-icons  left">keyboard_arrow_up</i>
-              12%
-            </div>
+            <div class="card-metric-value">{{did["tableData"] | length}}</div>
+            
           </div>
           <div class="card-metric waves-effect">
-            <div class="card-metric-title">Between the year(s) </div>
-            <div class="card-metric-value">{{did["lineChart"][0][0]}} to {{did["lineChart"][-1][0]}}</div>
+            <div class="card-metric-title">Includes </div>
+            <div class="card-metric-value">Emergency,Normal</div>
             <div class="card-metric-change">
               <i class="material-icons left"></i>
               
@@ -433,30 +391,39 @@ a{
           </div>
         </div>
         <div class="card-content">
-            <div id="line-chart" ></div>
-        </div>
-      </div>
-
-    </div>
-    <div class="col s6">
-
-      <div class="card">
-        <div class="card-metrics">
-          <div class="card-metric waves-effect active">
-            <div class="card-metric-title">Cases </div>
-            <div class="card-metric-value">{{did["gaugeChart"]["number"]}}</div>
-          </div>
-          <div class="card-metric waves-effect">
-            <div class="card-metric-title">Between the year(s) </div>
-            <div class="card-metric-value">{{did["lineChart"][0][0]}} to {{did["lineChart"][-1][0]}}</div>
-            <div class="card-metric-change">
-              <i class="material-icons left"></i>
-              
-            </div>
-          </div>
-        </div>
-        <div class="card-content">
-          <div id="pie-chart" ></div>
+            <div class="container">
+                    <div class="row">
+                      <div class="col s12">
+                        <h2 class="section-title">Patient Names</h2>
+                  
+                        <div class="card">
+                          <table id="table-custom-elements" class="row-border" cellspacing="0" width="100%">
+                            <thead>
+                              <tr>
+                                
+                                <th>Name</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                {%for name in did["tableData"]%}
+                                <tr >
+                                    <td><div class="waves-effect" >
+                                        <div class="card-metric-title"></div>
+                                        <div class="card-metric-value"><a style="color:#222" href="/reports/{{name}}">{{name}}</a></div>
+                                        <div class="card-metric-change">
+                                          <i class="material-icons left"></i>
+                                          
+                                        </div>
+                                      </div></td>
+                                    </tr>
+                                {%endfor%}
+                            </tbody>
+                          </table>
+                        </div>
+                  
+                      </div>
+                    </div>
+                  </div>
         </div>
       </div>
 
@@ -526,100 +493,7 @@ a{
 <script src="//cdn.shopify.com/s/files/1/1775/8583/t/1/assets/admin-materialize.min.js?0"></script>
   </body>
 </html>
-      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-      <script type="text/javascript">
-        google.charts.load('current', {'packages':['corechart']});
-        google.charts.setOnLoadCallback(drawChartMiniLineChart);
-        google.charts.setOnLoadCallback(drawChartLineChart);
-        
-        function drawChartMiniLineChart() {
-            var dataMiniLineChart = new google.visualization.DataTable();
-        dataMiniLineChart.addColumn('number', 'year');
-        dataMiniLineChart.addColumn('number', 'value');
-        dataMiniLineChart.addRows({{did["lineChart"]}})
-  
-          var optionsMiniLineChart = {chart:{
-            title: '',
-            curveType: 'function',
-            legend: { position: 'bottom' }
-          },
-        width: 100,
-        height: 100};
-  
-          var chartMiniLineChart = new google.visualization.LineChart(document.getElementById('mini-line-chart1'));
-  
-          chartMiniLineChart.draw(dataMiniLineChart, optionsMiniLineChart);
-          
-        }
-        
-        function drawChartLineChart() {
-            var dataLineChart = new google.visualization.DataTable();
-        dataLineChart.addColumn('number', 'year');
-        dataLineChart.addColumn('number', 'value');
-        dataLineChart.addRows({{did["lineChart"]}})
-  
-          var optionsLineChart = {chart:{
-            title: '',
-            curveType: 'function',
-            legend: { position: 'bottom' }
-          },
-        width: 400,
-        height: 400};
-  
-          var chartLineChart = new google.visualization.LineChart(document.getElementById('line-chart'));
-  
-          chartLineChart.draw(dataLineChart, optionsLineChart);
-          
-        }
-
-        
-      google.charts.load('current', {'packages':['gauge']});
-      google.charts.setOnLoadCallback(drawChart);
-
-      function drawChart() {
-
-        var data = google.visualization.arrayToDataTable([
-          ['Label', 'Value'],
-          ['Cases', {{did["appointments"]}}]
-          
-        ]);
-
-        var options = {
-          width: 100, height: 100,
-          minorTicks: 5
-        };
-
-        var chart = new google.visualization.Gauge(document.getElementById('mini-stacked-gauge-chart'));
-
-        chart.draw(data, options);
-
-        
-      }
-      </script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load("current", {packages:["corechart"]});
-      google.charts.setOnLoadCallback(drawChartPieChart);
-      function drawChartPieChart() {
-        var dataPieChart = google.visualization.arrayToDataTable([
-          ['Task', 'Count'],
-          ['Emergency',     {{did["pieChart"]["emergency"]}}],
-          ['Normal',      {{did["pieChart"]["normal"]}}],
-          ['Unavailable',  {{did["pieChart"]["unavailable"]}}]
-          
-        ]);
-
-        var optionsPieChart = { "chart":{
-          title: 'Cases Shared',
-          is3D: true,
-        },"colors":["orange","green","grey"],
-        width: 400,
-        height: 400};
-
-        var chart = new google.visualization.PieChart(document.getElementById('pie-chart'));
-        chart.draw(dataPieChart, optionsPieChart);
-      }
-    </script>
+      
   </head>
   
 
