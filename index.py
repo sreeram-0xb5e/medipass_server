@@ -372,19 +372,21 @@ def add_device_into_db():
 def data_access_history():
     title = ["Blood Information","Morphological Information", "ENT Information","Orthopediac Information","Cardial Information"]
     p_id = request.args['pid']
-    request_res = requests.get('http://209.97.130.224:8000/data_access_history?pid=' + p_id)
+    request_res = requests.get('http://167.71.221.150:8000/data_access_history?pid=' + p_id)
     res =  ast.literal_eval(request_res.text)
     final_res = []
     for i in res:
-        data = {}
-        x = doctor.find_one({"id" : i['doctorID']})
-        data['d_name'] = x['name']
-        data['operation'] = i['Operation']
-        data['category'] = title[int(i['dataCategory']) - 1]
-        data['time'] = i['Time']
-        final_res.append(data)
-    print ("Final Res:")
-    print (final_res)
+    #    print (i)
+         data = {}
+         x = doctor.find_one({"id" : i['doctorID']})
+         data['d_name'] = "Vipul Gupta"
+         data['operation'] = i['Operation']
+    
+         data['time'] = i['Time']
+         final_res.append(data)
+     
+     
+    print (res)
     return render_template("/customer/data_access_card.html", data = final_res)
 
 
