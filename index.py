@@ -106,12 +106,48 @@ def doc_index():
     return render_template("/doctor/index.html" , did = did)
 @app.route("/patients")
 def patients():
-    did={"tableData":["Rama","Sreeram","Chaitanya"]}
+    doctorRecords=meditrack["d_inbox"].find({"doctor_id":"500"},{"patient_id":1})
+    for record in doctorRecords:
+        results=emergency_db.find({"id":record["patient_id"]},{"name":1,"id":1})
+        tableData={}
+        for rec in results:
+            tableData[rec["name"]]=rec["id"]
+    did={"tableData":tableData}
     return render_template("/doctor/patientListing.html" , did = did)
-@app.route("/reports/<name>")
-def reports(name):
-    return render_template("/doctor/reports.html",name=name.upper(),bloodPressure={"value":"120/80","status":"Good"},caseType="Normal",
-    bodyTemperature=99,sugarLevel=120.0,cards={"Contact Details":{"Name":name,"Age":22,"Gender":"Male","Contact":1234567890},"ENT":{"Name":name,"Age":22,"Gender":"Male","Contact":1234567890},"ENT1":{"Name":name,"Age":22,"Gender":"Male","Contact":1234567890}})
+@app.route("/reports/<id>")
+def reports(id):
+    cards={}
+    doctorRecords=meditrack["d_inbox"].find({"patient_id":id,"doctor_id":"500"},{"data_id":1})
+    cardNum=[]
+    for rec in doctorRecords:
+        cardNum.append(rec["data_id"])
+    for cardNo in cardNum:
+        cardData=meditrack["user_data"].find_one({"data_id":cardNo,"user_id":id})
+        print (type(eval(cardData["data"])))
+        cards[cardData["data_name"]]={}
+        temp=eval(cardData["data"])
+        for i in temp:
+            cards[cardData["data_name"]][i[0]]=i[1]
+    emergencyDetails=emergency_db.find_one({"id":id})
+    print (emergencyDetails)
+    cards["Emergency Details"]=emergencyDetails
+    
+    name=emergencyDetails["name"]
+    bloodPressure={"value":emergencyDetails["bp"],"status":"Good"}
+    caseType=emergencyDetails["oc"]
+    if emergencyDetails["oc"]==None:
+        caseType="Normal"
+    sugarLevel=emergencyDetails["sugarLevel"]
+    bodyTemperature=emergencyDetails["temperature"]
+    cards["Emergency Details"].pop("bp",None)
+    cards["Emergency Details"].pop("sugarLevel")
+    cards["Emergency Details"].pop("temperature")
+    cards["Emergency Details"].pop("oc")
+    cards["Emergency Details"].pop("_id")
+    cards["Emergency Details"].pop("id")
+
+    return render_template("/doctor/reports.html",name=name.upper(),bloodPressure=bloodPressure,caseType=caseType,
+    bodyTemperature=bodyTemperature,sugarLevel=sugarLevel,cards=cards)
 @app.route("/d_cards",methods = ['GET'])
 def data_card1():
     user_id = request.args['id']
