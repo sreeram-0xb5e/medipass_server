@@ -103,6 +103,9 @@ def logout():
 def doc_index():
     did={"lineChart":[[2015,10],[2016,8],[2017,11],[2018,6],[2019,10]],"appointments":10,"gaugeChart":{"year":2019,"number":10},"barChart":{"seriesKeys":['types', 'General',
          'Peadiatrics', 'Others' ],"seriesYears":[]},"pieChart":{"emergency":21,"normal":5,"unavailable":4}}
+    did["d_inbox_count"]=str(meditrack["d_inbox"].find({}).count())
+    did["d_inbox_patients"]=len(meditrack.d_inbox.distinct("user_id"))
+
     return render_template("/doctor/index.html" , did = did)
 @app.route("/patients")
 def patients():
@@ -117,6 +120,8 @@ def patients():
 @app.route("/reports/<id>")
 def reports(id):
     cards={}
+    response=requests.get("htpp://localhost:8000/data_access_history")
+    print ("response status code  for data_access_history  is "+str(response.status_code))
     doctorRecords=meditrack["d_inbox"].find({"patient_id":id,"doctor_id":"500"},{"data_id":1})
     cardNum=[]
     for rec in doctorRecords:

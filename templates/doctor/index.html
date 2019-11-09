@@ -389,8 +389,8 @@ a{
               <div class="card-stacked">
                 <div class="card-metrics card-metrics-static">
                   <div class="card-metric active">
-                    <div class="card-metric-title">Total Patients</div>
-                    <div class="card-metric-value">{{did["lineChart"][-1][1]}}</div>
+                    <div class="card-metric-title">Received Patient Data </div>
+                    <div class="card-metric-value">{{did["d_inbox_count"]}}</div>
                     <div class="card-metric-change increase">12%<i class="material-icons left">keyboard_arrow_up</i></div>
                   </div>
                 </div>
@@ -428,7 +428,7 @@ a{
         <div class="card-metrics">
           <div class="card-metric waves-effect active">
             <div class="card-metric-title">Patients</div>
-            <div class="card-metric-value">{{did["lineChart"][-1][1]}}</div>
+            <div class="card-metric-value">{{did["d_inbox_patients"]}}</div>
             <div class="card-metric-change increase">
               <i class="material-icons  left">keyboard_arrow_up</i>
               12%
