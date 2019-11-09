@@ -132,10 +132,10 @@ def reports(id):
         cards[cardData["data_name"]]={}
         temp=eval(cardData["data"])
         url = "http://localhost:8000/transactions/new"
-
-        payload = json.dumps({"Operation":"opened / read patient ","doctorID":"500","dataCategory":cardNo,"patientID":id})
+        #json.dumps({"Operation":"opened / read patient ","doctorID":"500","dataCategory":cardNo,"patientID":id})
+        payload = "Operation=opened&doctorID=500&dataCategory="+cardNo+"&patientID="+id
         headers = {
-            'content-type': "application/json",
+            'content-type': "application/x-www-form-urlencoded",
             'cache-control': "no-cache",
             'postman-token': "1d30fcc4-6847-9e2b-6c8e-f16da4bd91f8"
             }
