@@ -6,12 +6,17 @@
 
 <script>
 
-
-$(function(){
-    $('#btn1').click(function() {
-        window.location.href='http://167.71.221.150:5000/scan_qr?user_id=' + {{ uid }}+'&data_id='+{{ data_id }};
-    });
-    });
+    function add_d_inbox()  
+    {
+        
+        doc_id = document.getElementById("doctor_id").value;   
+        var url = "http://167.71.221.150:5000/add_data_inbox?doctor_id=" + doc_id +"&patient_id="+ {{uid}}+ "&data_id=" + {{data_id}};                    
+        const Http = new XMLHttpRequest();
+        Http.open("GET", url);
+        Http.send();
+        alert("Data sent!");
+    }
+    
 </script>
 
 <div class="demo-cards mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-grid mdl-grid--no-spacing">
@@ -42,9 +47,14 @@ $(function(){
       <br/>
       <br/>
       <br/>
-        <button id = "btn1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+        
+        <center>Doctor's Medipass ID:&nbsp;<input id="doctor_id" type="text"/><br/><br/>
+        <button id = "btn1" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onclick="add_d_inbox()" >
           Share
         </button>
+        <br/><br/>         
+      </center>        
+      
     </div>
 
 

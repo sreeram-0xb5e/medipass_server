@@ -28,7 +28,7 @@ pl = medipass.prescription_list
 cl = medipass.consultation
 doctor = medipass.doctor
 ud = meditrack.user_data
-d_inbox = medipass.data_inbox
+d_inbox = meditrack.d_inbox
 
 #Login
 app.config.from_object('config')
@@ -174,11 +174,12 @@ def doc_qrcode():
 ##
 @app.route('/add_data_inbox')
 def add_data_inbox():
+    device_type_count = [2,2,2,2]
     doctor_id = request.args['doctor_id']
     patient_id = request.args['patient_id']
     data_id = request.args['data_id']
     d_inbox.insert({ "doctor_id" : doctor_id , "patient_id" : patient_id , "data_id" : data_id })
-    return "1"
+    return render_template("/customer/dashboard.html",device_type_count = device_type_count,uid = patient_id)
 ##
 @app.route('/show_data_inbox')
 def data_inbox():
