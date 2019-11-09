@@ -107,9 +107,9 @@ def doc_index():
 @app.route("/patients")
 def patients():
     doctorRecords=meditrack["d_inbox"].find({"doctor_id":"500"},{"patient_id":1})
+    tableData={}
     for record in doctorRecords:
-        results=emergency_db.find({"id":record["patient_id"]},{"name":1,"id":1})
-        tableData={}
+        results=emergency_db.find({"id":record["patient_id"]},{"name":1,"id":1})        
         for rec in results:
             tableData[rec["name"]]=rec["id"]
     did={"tableData":tableData}
@@ -135,7 +135,7 @@ def reports(id):
     name=emergencyDetails["name"]
     bloodPressure={"value":emergencyDetails["bp"],"status":"Good"}
     caseType=emergencyDetails["oc"]
-    if emergencyDetails["oc"]==None:
+    if emergencyDetails["oc"]=="None":
         caseType="Normal"
     sugarLevel=emergencyDetails["sugarLevel"]
     bodyTemperature=emergencyDetails["temperature"]
