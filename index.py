@@ -22,11 +22,12 @@ import ast
 app = Flask(__name__)
 client = MongoClient('localhost',27017) #Client connection
 medipass = client.medipass
-emergency_db = medipass.emergency
+meditrack = client.meditrack
+emergency_db = meditrack.emergency_db
 pl = medipass.prescription_list
 cl = medipass.consultation
 doctor = medipass.doctor
-ud = medipass.user_data
+ud = meditrack.user_data
 d_inbox = medipass.data_inbox
 
 #Login
@@ -191,21 +192,24 @@ def test():
 @app.route("/emergency" , methods = ['GET'])
 def emergency():
     user_id = request.args['id']
-    emergency_data = emergency_db.find({"id" : user_id })
+    print ("User id " + str(user_id))
+
+    emergency_data = client.meditrack.emergency_db.find_one({"id" : str(user_id) })
     data = {}
-    for i in emergency_data:
-        data['id'] = i['id']
-        data['name'] = i['name']
-        data['age'] = i['age']
-        data['gender'] = i['gender']
-        data['number'] = i['number']
-        data['address'] = i['address']
-        data['blood'] = i['blood']
-        data['diabetic'] = i['diabetic']
-        data['bp'] = i['bp']
-        data['carcinogenic'] = i['carcinogenic']
-        data['oc'] = i['oc']
-    return render_template("/customer/emergency_info.html",data= data)
+    # for i in emergency_data:
+    #     data['id'] = i['id']
+    #     data['name'] = i['name']
+    #     data['age'] = i['age']
+    #     data['gender'] = i['gender']
+    #     data['number'] = i['number']
+    #     data['address'] = i['address']
+    #     data['blood'] = i['blood']
+    #     data['diabetic'] = i['diabetic']
+    #     data['bp'] = i['bp']
+    #     data['carcinogenic'] = i['carcinogenic']
+    #     data['oc'] = i['oc']
+    # print (data)
+    return render_template("/customer/emergency_info.html",data= emergency_data)
 
 
 ##
@@ -275,19 +279,25 @@ def data_card():
     user_id = request.args['id']
     categ = ["Blood Information","Morphological Information", "ENT Information","Orthopediac Information","Cardial Information"]
     data_id = request.args['data_id']
-    u_data = ud.find_one({"user_id" : str(user_id) , "data_id" : str(data_id) })
-    u_data_container =  u_data['data_container']
+    print (user_id)
+    print (data_id)
+    u_data = ud.find_one({"user_id" : str(user_id), "data_id" : str(data_id)})
+    u_data = u_data["data"]
+    u_data = eval(u_data)
+    print (type(u_data))
+    print (u_data)
+
     res = []
-    u_data_keys = u_data_container.keys()
+    #  u_data_keys = u_data_container.keys()
 
-    for i in u_data_keys:
+    for i in u_data:
         data = {}
-        data['attribute'] = str(i)
-        data['value'] = u_data_container[i]
-        data['normal_value'] = 1
+        data['attribute'] = i[0]
+        data['value'] = i[1]
+        data['normal_value'] = i[2]
         res.append(data)
-    return render_template("/customer/data_card.html",title = categ[int(data_id)-1] , data = res , uid = uid , data_id = data_id)
-
+    return render_template("/customer/data_card.html",title = categ[int(data_id)-1] , data = res , uid = uid , data_id = data_id)    
+    #return "null"
 
 @app.route("/add_a_device",methods=['GET'])
 def add_a_device():

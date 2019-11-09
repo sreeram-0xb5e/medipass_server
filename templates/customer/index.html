@@ -179,11 +179,11 @@
           </div>
         </header>
         <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-          <a class="mdl-navigation__link" onclick="window.location.href='{{ url_for( 'dashboard') }}';"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Dashboard</a>
-          <a class="mdl-navigation__link" onclick = "window.location.href='http://209.97.130.224:5000/emergency?id=' + {{ uid }}"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Emergency Information</a>
-          <a class="mdl-navigation__link" onclick = "window.location.href='http://209.97.130.224:5000/all_information?id=' + {{ uid }}"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>All Information</a>
-          <a class="mdl-navigation__link" onclick = "window.location.href='http://209.97.130.224:5000/consultation_list?id=' + {{ uid }}"> <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Consultation History</a>
-          <a class="mdl-navigation__link" onclick = "window.location.href='http://209.97.130.224:5000/data_access_history?pid=' + {{ uid }}"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Data Access History</a>
+          <a class="mdl-navigation__link" onclick = "go_to('http://167.71.221.150:5000/dashboard')"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Dashboard</a>
+          <a class="mdl-navigation__link" onclick = "go_to('http://167.71.221.150:5000/emergency?id=' + {{ uid }})"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Emergency Information</a>
+          <a class="mdl-navigation__link" onclick = "go_to('http://167.71.221.150:5000/all_information?id=' + {{ uid }})"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>All Information</a>      
+          <a class="mdl-navigation__link" onclick = "window.location.href='http://167.71.221.150:5000/consultation_list?id=' + {{ uid }}"> <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Consultation History</a>
+          <a class="mdl-navigation__link" onclick = "window.location.href='http://167.71.221.150:5000/data_access_history?pid=' + {{ uid }}"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Data Access History</a>
           <a class="mdl-navigation__link" onclick = "on_logout()"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">delete</i>Logout</a>
           <br/>
           <br/>
@@ -198,7 +198,7 @@
 
           {% endblock %}
 
-          </div>
+    </div>
           <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" style="position: fixed; left: -1000px; height: -1000px;">
             <defs>
               <mask id="piemask" maskContentUnits="objectBoundingBox">
@@ -229,6 +229,11 @@
 <script type="text/javascript">
 function googleTranslateElementInit() {
   new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+}
+
+function go_to(url)
+{
+  window.location.href= url;
 }
 </script>
 

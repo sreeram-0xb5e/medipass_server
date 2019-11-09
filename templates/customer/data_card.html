@@ -9,8 +9,7 @@
 
 $(function(){
     $('#btn1').click(function() {
-
-        scan_barcode( '{{ uid }}' , '{{ data_id }}');
+        window.location.href='http://167.71.221.150:5000/scan_qr?user_id=' + {{ uid }}+'&data_id='+{{ data_id }};
     });
     });
 </script>
