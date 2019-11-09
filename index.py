@@ -120,8 +120,8 @@ def patients():
 @app.route("/reports/<id>")
 def reports(id):
     cards={}
-    #response=requests.get("http://localhost:8000/data_access_history")
-    #print ("response status code  for data_access_history  is "+str(response.status_code))
+    response=requests.get("http://localhost:8000/data_access_history")
+    print ("response status code  for data_access_history  is "+str(response.status_code))
     doctorRecords=meditrack["d_inbox"].find({"patient_id":id,"doctor_id":"500"},{"data_id":1})
     cardNum=[]
     for rec in doctorRecords:
@@ -131,6 +131,17 @@ def reports(id):
         print (type(eval(cardData["data"])))
         cards[cardData["data_name"]]={}
         temp=eval(cardData["data"])
+        url = "http://localhost:8000/transactions/new"
+
+        payload = json.dumps({"Operation":"opened / read patient ","doctorID":"500","dataCategory":cardNo,"patientID":id})
+        headers = {
+            'content-type': "application/json",
+            'cache-control': "no-cache",
+            'postman-token': "1d30fcc4-6847-9e2b-6c8e-f16da4bd91f8"
+            }
+
+        response = requests.request("POST", url, data=payload, headers=headers)
+        print (response.status_code," req to blockchain")
         for i in temp:
             cards[cardData["data_name"]][i[0]]=i[1]
     emergencyDetails=emergency_db.find_one({"id":id})
@@ -150,7 +161,8 @@ def reports(id):
     cards["Emergency Details"].pop("oc")
     cards["Emergency Details"].pop("_id")
     cards["Emergency Details"].pop("id")
-
+    
+    
     return render_template("/doctor/reports.html",name=name.upper(),bloodPressure=bloodPressure,caseType=caseType,
     bodyTemperature=bodyTemperature,sugarLevel=sugarLevel,cards=cards)
 @app.route("/d_cards",methods = ['GET'])
