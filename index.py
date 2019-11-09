@@ -103,7 +103,7 @@ def logout():
 def doc_index():
     did={"lineChart":[[2015,10],[2016,8],[2017,11],[2018,6],[2019,10]],"appointments":10,"gaugeChart":{"year":2019,"number":10},"barChart":{"seriesKeys":['types', 'General',
          'Peadiatrics', 'Others' ],"seriesYears":[]},"pieChart":{"emergency":21,"normal":5,"unavailable":4}}
-    return render_template("/doctor/dashboard.html" , did = did)
+    return render_template("/doctor/index.html" , did = did)
 @app.route("/patients")
 def patients():
     did={"tableData":["Rama","Sreeram","Chaitanya"]}
